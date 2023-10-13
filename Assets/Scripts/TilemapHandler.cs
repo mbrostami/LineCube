@@ -422,6 +422,8 @@ public class TilemapHandler
 
     private bool IsInsideLimitations(Vector3Int vector3Int)
     {
+        // Debug.Log("vector3Int.x:" + vector3Int.x + " levelState.MaxXPos:" + levelState.MaxXPos);
+        // Debug.Log("vector3Int.7:" + vector3Int.y + " levelState.MaxYPos:" + levelState.MaxYPos);
         if (vector3Int.x > levelState.MaxXPos
             || vector3Int.x < 0
             || vector3Int.y > levelState.MaxYPos
@@ -698,15 +700,7 @@ public class TilemapHandler
             // Debug.Log("validMove:"+validMove);
             if (validMove) {
                 if (validateRoute()) {
-                    // Debug.Log("ValidRoute");
-                    //if (levelManagement.CanPlayNextLevel() == false) {
-                    LevelState _levelState = levelStateManager.LoadLevelState(levelManagement.GetCurrentLevel().Number);
-                    levelManagement.EnableNextLevel(_levelState.levelScore);
-                    // ShowNextLevelButton();
-                    audioLevelCompleted.Play(0);
-                    TilemapHandler.levelCompletedTrigger = true;
-                    // }
-                    saveLevelState(true);
+                    FinishLevel();
                 } else {
                     // Debug.Log("Next level not available now!");
                     saveLevelState(false);
@@ -714,6 +708,19 @@ public class TilemapHandler
             }
         }
         return true;
+    }
+
+    public void FinishLevel() 
+    {
+        // Debug.Log("ValidRoute");
+        //if (levelManagement.CanPlayNextLevel() == false) {
+        LevelState _levelState = levelStateManager.LoadLevelState(levelManagement.GetCurrentLevel().Number);
+        levelManagement.EnableNextLevel(_levelState.levelScore);
+        // ShowNextLevelButton();
+        audioLevelCompleted.Play(0);
+        TilemapHandler.levelCompletedTrigger = true;
+        // }
+        saveLevelState(true);
     }
 
     private bool CreateEntryBox(int x, int y)

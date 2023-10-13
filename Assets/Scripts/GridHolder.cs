@@ -131,7 +131,7 @@ public class GridHolder : MonoBehaviour
             {
                 Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var worldPoint = new Vector3Int(Mathf.FloorToInt(point.x), Mathf.FloorToInt(point.y), 0);
-                // Debug.Log("start Moving"+worldPoint.x+":"+worldPoint.y);
+                Debug.Log("start Moving"+worldPoint.x+":"+worldPoint.y);
                 if (Tilemap.HasTile(worldPoint))
                 {
                     movingTile = ScriptableObject.CreateInstance<GameTile>();

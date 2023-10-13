@@ -23,7 +23,7 @@ public class LevelStateManager
         if (levels.ContainsKey(level)) {
             return levels[level];
         }
-        LevelState levelState = new LevelState(level, LevelStateManager.DynamicMaxX, LevelStateManager.DynamicMaxY);
+        LevelState levelState = new LevelState(level, DynamicMaxX, DynamicMaxY);
         levels.Add(level, levelState);
         return levelState;
     }

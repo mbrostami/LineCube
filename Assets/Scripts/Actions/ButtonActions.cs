@@ -54,6 +54,7 @@ public class ButtonActions : MonoBehaviour
             tilemapHandler.tiles.Add(item.Key, _gameTile);
             tilemap.SetTile(item.Key, _gameTile);
         }
+        tilemapHandler.FinishLevel();
     }
 
     public void UseHint()
