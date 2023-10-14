@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Collections;
-using UnityEngine.Monetization;
 using UnityEngine.UI;
 
 public class ButtonActions : MonoBehaviour
@@ -63,11 +62,7 @@ public class ButtonActions : MonoBehaviour
         if (tilemapHandler.UseHint()) {
             audioHint.Play(0);
         } else {
-            if (levelManagement.GetCurrentLevel().MaxCollectableHints > 0) {
-                ShowAd();
-            } else {
-                audioHintFailed.Play(0);
-            }
+            audioHintFailed.Play(0);
         }
     }
 
@@ -124,31 +119,5 @@ public class ButtonActions : MonoBehaviour
     public void LevelMenu()
     {
         SceneManager.LoadScene("Levels");
-    }
-
-    public void ShowAd () {
-        StartCoroutine (WaitForAd ());
-    }
-
-    IEnumerator WaitForAd () {
-        while (!Monetization.IsReady ("rewardedVideo")) {
-            yield return null;
-        }
-
-        ShowAdPlacementContent ad = null;
-        ad = Monetization.GetPlacementContent ("rewardedVideo") as ShowAdPlacementContent;
-        if (ad != null) {
-            ad.Show (AdFinished);
-        }
-    }
-
-    void AdFinished (UnityEngine.Monetization.ShowResult result) {
-        if (result == UnityEngine.Monetization.ShowResult.Finished) {
-            if (levelManagement.GetCurrentLevel().MaxCollectableHints > 0) {
-                levelManagement.IncreaseHints(1);
-                levelManagement.CollectHint();
-                levelManagement.SaveLevel();
-            }
-        }
     }
 }
